@@ -5,9 +5,9 @@ type Props = {
 }
 export const Auth0ProviderWithNavigate = ({ children }: Props) => {
   const navigate = useNavigate()
-  const domain = import.meta.env.VITE_Auth0_DOMAIN
-  const clientID = import.meta.env.VITE_Auth0_CLIENT_ID
-  const redirectURI = import.meta.env.VITE_Auth0_CALLBACK_URL
+  const domain = import.meta.env.VITE_AUTH0_DOMAIN
+  const clientID = import.meta.env.VITE_AUTH0_CLIENT_ID
+  const redirectURI = import.meta.env.VITE_AUTH0_CALLBACK_URL
   const audience = import.meta.env.VITE_AUTH0_AUDIENCE
   if (!domain || !clientID || !redirectURI || !audience) {
     throw new Error("Unable to initialize auth")
