@@ -1,3 +1,4 @@
+import { User } from "@/types"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useMutation, useQuery } from "react-query"
 import { toast } from "sonner"
@@ -84,7 +85,7 @@ export const useUpdateUser = () => {
 export const useGetCurrentUser = () => {
   const { getAccessTokenSilently } = useAuth0()
 
-  const getCurrentUserRequest = async () => {
+  const getCurrentUserRequest = async (): Promise<User> => {
     const accessToken = await getAccessTokenSilently()
     const res = await fetch(`${API_BASE_URL}/api/user/currentuser`, {
       method: "GET",
