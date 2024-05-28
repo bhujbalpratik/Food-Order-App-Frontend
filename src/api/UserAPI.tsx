@@ -45,7 +45,7 @@ type UpdateUserRequest = {
   country: string
 }
 
-export const useUpdateUser = () => {
+export const useUpdateUser = (refetch: () => void) => {
   const { getAccessTokenSilently } = useAuth0()
   const updateUserRequest = async (formData: UpdateUserRequest) => {
     const accessToken = await getAccessTokenSilently()
@@ -66,18 +66,20 @@ export const useUpdateUser = () => {
   const {
     mutateAsync: updateUser,
     isLoading,
-    isSuccess,
     error,
     reset,
-  } = useMutation(updateUserRequest)
+  } = useMutation(updateUserRequest, {
+    onSuccess: () => {
+      toast.success("User Profile Updated")
+      refetch()
+    },
+    onError: (error: any) => {
+      toast.error(error.toString())
+      reset()
+    },
+  })
 
-  console.log("Success : ", isSuccess)
-  if (isSuccess) {
-    toast.success("User Profile Updated")
-  }
   if (error) {
-    toast.error(error.toString())
-    reset()
   }
   return { updateUser, isLoading }
 }
@@ -104,10 +106,11 @@ export const useGetCurrentUser = () => {
     data: currentUser,
     isLoading,
     error,
+    refetch,
   } = useQuery("fetchCurrentUser", getCurrentUserRequest)
 
   if (error) {
     toast.error(error.toString())
   }
-  return { currentUser, isLoading }
+  return { currentUser, isLoading, refetch }
 }

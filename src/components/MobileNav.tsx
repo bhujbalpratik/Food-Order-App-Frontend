@@ -10,9 +10,12 @@ import { Separator } from "./ui/separator"
 import { Button } from "./ui/button"
 import { useAuth0 } from "@auth0/auth0-react"
 import { MobileNavLinks } from "./MobileNavLinks"
+import { useGetCurrentUser } from "@/api/UserAPI"
 
 export const MobileNav = () => {
-  const { isAuthenticated, loginWithRedirect, user } = useAuth0()
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { currentUser } = useGetCurrentUser()
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -23,7 +26,7 @@ export const MobileNav = () => {
           {isAuthenticated ? (
             <span className="flex items-center font-bold gap-2">
               <CircleUserRound className="text-orange-500" />
-              {user?.nickname}
+              {currentUser?.name}
             </span>
           ) : (
             <span>Welcome to JevlisKa?.com</span>

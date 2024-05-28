@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input"
 import { LoadingButton } from "@/components/LoadingButton"
 import { Button } from "@/components/ui/button"
 import { User } from "@/types"
-import { useEffect } from "react"
 
 const formSchema = z.object({
   email: z.string().optional(),
@@ -36,9 +35,7 @@ export const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: currentUser,
   })
-  useEffect(() => {
-    form.reset(currentUser)
-  }, [currentUser, form])
+
   return (
     <Form {...form}>
       <form

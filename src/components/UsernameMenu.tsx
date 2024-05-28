@@ -10,14 +10,17 @@ import { useAuth0 } from "@auth0/auth0-react"
 import { Link } from "react-router-dom"
 import { Separator } from "./ui/separator"
 import { Button } from "./ui/button"
+import { useGetCurrentUser } from "@/api/UserAPI"
 
 export const UsernameMenu = () => {
-  const { user, logout } = useAuth0()
+  const { logout } = useAuth0()
+  const { currentUser } = useGetCurrentUser()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center px-3 font-bold hover:text-orange-500 gap-2">
         <CircleUserRound className="text-orange-500" />
-        {user?.nickname}
+        {currentUser?.name}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
