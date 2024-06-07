@@ -17,10 +17,10 @@ import { User } from "@/types"
 
 const formSchema = z.object({
   email: z.string().optional(),
-  name: z.string().min(1, "name is required"),
+  name: z.string().trim().min(1, "name is required"),
   addressLine1: z.string().min(1, "Address is required"),
-  city: z.string().min(1, "City is required"),
-  country: z.string().min(1, "Country is required"),
+  city: z.string().trim().min(1, "City is required"),
+  country: z.string().trim().min(1, "Country is required"),
 })
 
 type UserFormData = z.infer<typeof formSchema>
@@ -119,7 +119,7 @@ export const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
           <LoadingButton />
         ) : (
           <Button type={"submit"} className="bg-orange-500">
-            Submit
+            Update Profile
           </Button>
         )}
       </form>

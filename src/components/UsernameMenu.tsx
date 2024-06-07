@@ -14,13 +14,13 @@ import { useGetCurrentUser } from "@/api/UserAPI"
 
 export const UsernameMenu = () => {
   const { logout } = useAuth0()
-  const { currentUser } = useGetCurrentUser()
+  const { currentUser, isLoading } = useGetCurrentUser()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center px-3 font-bold hover:text-orange-500 gap-2">
         <CircleUserRound className="text-orange-500" />
-        {currentUser?.name}
+        {isLoading ? `Loading...` : `${currentUser?.name}`}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
@@ -29,6 +29,14 @@ export const UsernameMenu = () => {
             className="font-bold hover:text-orange-500"
           >
             Profile
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            to={"/manage-restaurant"}
+            className="font-bold hover:text-orange-500"
+          >
+            Manage Restaurant
           </Link>
         </DropdownMenuItem>
         <Separator />

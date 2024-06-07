@@ -14,7 +14,7 @@ import { useGetCurrentUser } from "@/api/UserAPI"
 
 export const MobileNav = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0()
-  const { currentUser } = useGetCurrentUser()
+  const { currentUser, isLoading } = useGetCurrentUser()
 
   return (
     <Sheet>
@@ -23,11 +23,15 @@ export const MobileNav = () => {
       </SheetTrigger>
       <SheetContent className="space-y-3">
         <SheetTitle>
-          {isAuthenticated ? (
-            <span className="flex items-center font-bold gap-2">
-              <CircleUserRound className="text-orange-500" />
-              {currentUser?.name}
-            </span>
+          {currentUser ? (
+            isLoading ? (
+              <span>Loading...</span>
+            ) : (
+              <span className="flex items-center font-bold gap-2">
+                <CircleUserRound className="text-orange-500" />
+                {isLoading ? `Loading...` : `${currentUser?.name}`}
+              </span>
+            )
           ) : (
             <span>Welcome to JevlisKa?.com</span>
           )}
