@@ -1,7 +1,6 @@
-import { RestaurantFormData } from "@/forms/Manage-Restaurant-form/ManageRestaurantForm"
 import { Restaurant } from "@/types"
 import { useAuth0 } from "@auth0/auth0-react"
-import { useMutation } from "react-query"
+import { useMutation, useQuery } from "react-query"
 import { toast } from "sonner"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
@@ -39,4 +38,26 @@ export const useCreateRestaurant = () => {
     toast.error("Unable to create restaurant")
   }
   return { createRestaurant, isLoading }
+}
+
+export const useGetRestaurant = () => {
+  const { getAccessTokenSilently } = useAuth0()
+
+  const getRestaurantRequest = async (): Promise<Restaurant> => {
+    const accessToken = await getAccessTokenSilently()
+    const res = await fetch(`${API_BASE_URL}/api/restaurant`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+
+    if (!res.ok) {
+      throw new Error(`Failed to get restaurant`)
+    }
+    return res.json()
+  }
+  const { data: restaurant, isLoading } = useQuery(
+    "fetchRestaurant",
+    getRestaurantRequest
+  )
+  return { restaurant, isLoading }
 }
