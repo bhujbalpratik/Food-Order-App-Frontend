@@ -1,7 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox"
 import { FormControl, FormItem, FormLabel } from "@/components/ui/form"
 import { ControllerRenderProps, FieldValues } from "react-hook-form"
-import { string } from "zod"
 
 type Props = {
   cuisine: string
