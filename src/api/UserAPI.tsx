@@ -66,7 +66,6 @@ export const useUpdateUser = (refetch: () => void) => {
   const {
     mutateAsync: updateUser,
     isLoading,
-    error,
     reset,
   } = useMutation(updateUserRequest, {
     onSuccess: () => {
@@ -79,8 +78,6 @@ export const useUpdateUser = (refetch: () => void) => {
     },
   })
 
-  if (error) {
-  }
   return { updateUser, isLoading }
 }
 

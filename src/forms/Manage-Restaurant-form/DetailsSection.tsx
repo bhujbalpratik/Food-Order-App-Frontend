@@ -24,7 +24,11 @@ export const DetailsSection = () => {
           <FormItem>
             <FormLabel>Name</FormLabel>
             <FormControl>
-              <Input {...field} className="bg-white" />
+              <Input
+                {...field}
+                className="bg-white"
+                placeholder="Enter your restaurant name"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -38,7 +42,7 @@ export const DetailsSection = () => {
             <FormItem className="flex-1">
               <FormLabel>City</FormLabel>
               <FormControl>
-                <Input {...field} className="bg-white" />
+                <Input {...field} className="bg-white" placeholder="City" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -51,7 +55,7 @@ export const DetailsSection = () => {
             <FormItem className="flex-1">
               <FormLabel>Country</FormLabel>
               <FormControl>
-                <Input {...field} className="bg-white" />
+                <Input {...field} className="bg-white" placeholder="Country" />
               </FormControl>
               <FormMessage />
             </FormItem>
