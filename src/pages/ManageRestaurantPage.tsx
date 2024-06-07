@@ -6,8 +6,9 @@ import {
 import { ManageRestaurantForm } from "@/forms/Manage-Restaurant-form/ManageRestaurantForm"
 
 export const ManageRestaurantPage = () => {
-  const { createRestaurant, isLoading: createLoading } = useCreateRestaurant()
   const { restaurant, refetch } = useGetRestaurant()
+  const { createRestaurant, isLoading: createLoading } =
+    useCreateRestaurant(refetch)
   const { updateRestarant, isLoading: updateLoading } =
     useUpdateRestaurant(refetch)
 
