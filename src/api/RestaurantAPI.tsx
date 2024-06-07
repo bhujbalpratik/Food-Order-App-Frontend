@@ -5,7 +5,7 @@ import { toast } from "sonner"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
-export const useCreateRestaurant = () => {
+export const useCreateRestaurant = (refetch: () => void) => {
   const { getAccessTokenSilently } = useAuth0()
   const createRestaurantRequest = async (
     restaurantFormData: FormData
@@ -25,18 +25,19 @@ export const useCreateRestaurant = () => {
     }
     return res.json()
   }
-  const {
-    mutate: createRestaurant,
-    isLoading,
-    isSuccess,
-    error,
-  } = useMutation(createRestaurantRequest)
-  if (isSuccess) {
-    toast.success("Restaurant Created")
-  }
-  if (error) {
-    toast.error("Unable to create restaurant")
-  }
+  const { mutate: createRestaurant, isLoading } = useMutation(
+    createRestaurantRequest,
+    {
+      onSuccess: () => {
+        toast.success("Restaurant Created")
+        refetch()
+      },
+      onError: () => {
+        toast.error("Unable to create restaurant")
+      },
+    }
+  )
+
   return { createRestaurant, isLoading }
 }
 
@@ -92,8 +93,8 @@ export const useUpdateRestaurant = (refetch: () => void) => {
         toast.success("Restaurant updated successfully")
         refetch()
       },
-      onError: (error: any) => {
-        toast.error(error.toString())
+      onError: () => {
+        toast.error("Unable to update restaurant")
       },
     }
   )
