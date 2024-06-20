@@ -101,3 +101,21 @@ export const useUpdateRestaurant = (refetch: () => void) => {
 
   return { updateRestarant, isLoading }
 }
+
+export const useGetRestaurantDetails = (restaurantId?: string) => {
+  const getRestaurantDetailsRequest = async (): Promise<Restaurant> => {
+    const res = await fetch(`${API_BASE_URL}/api/restaurant/${restaurantId}`)
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch restaurant details`)
+    }
+    return res.json()
+  }
+
+  const { data: restaurant, isLoading } = useQuery(
+    "fetchRestaurantDetails",
+    getRestaurantDetailsRequest,
+    { enabled: !!restaurantId }
+  )
+  return { restaurant, isLoading }
+}

@@ -107,7 +107,7 @@ export const useGetCurrentUser = () => {
   } = useQuery("fetchCurrentUser", getCurrentUserRequest)
 
   if (error) {
-    toast.error(error.toString())
+    toast.error(`Error while get user`)
   }
   return { currentUser, isLoading, refetch }
 }

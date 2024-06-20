@@ -23,15 +23,11 @@ export const MobileNav = () => {
       </SheetTrigger>
       <SheetContent className="space-y-3">
         <SheetTitle>
-          {currentUser ? (
-            isLoading ? (
-              <span>Loading...</span>
-            ) : (
-              <span className="flex items-center font-bold gap-2">
-                <CircleUserRound className="text-orange-500" />
-                {isLoading ? `Loading...` : `${currentUser?.name}`}
-              </span>
-            )
+          {isAuthenticated ? (
+            <span className="flex items-center font-bold gap-2">
+              <CircleUserRound className="text-orange-500" />
+              {isLoading ? `Loading...` : `${currentUser?.name}`}
+            </span>
           ) : (
             <span>Welcome to JevlisKa?.com</span>
           )}
